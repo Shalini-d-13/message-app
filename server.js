@@ -7,6 +7,12 @@ app.use(express.json());
 
 let messages = [];
 
+// ✅ ADD THIS (fixes "Cannot GET /")
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
+
+// existing routes
 app.get("/messages", (req, res) => {
   res.json(messages);
 });
@@ -17,6 +23,9 @@ app.post("/messages", (req, res) => {
   res.json({ success: true });
 });
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+// ✅ CHANGE THIS (VERY IMPORTANT)
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
